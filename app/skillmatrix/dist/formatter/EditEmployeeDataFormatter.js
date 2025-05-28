@@ -1,0 +1,2 @@
+sap.ui.define([],()=>{"use strict";return{formatObjectHeaderTitle(e,t){if(!e||!t){return""}const r=this.getOwnerComponent().getModel("i18n").getResourceBundle();try{const n=r.getText("pageTitleStringEdit",[]),i=r.getText("pageTitleStringData",[]),o=t.slice(-1).toLowerCase()==="s"?"'":"'s";return`${n} ${e} ${t}${o} ${i}`}catch(r){console.error("Error in formatter:",r);return`${e} ${t}`}}}});
+//# sourceMappingURL=EditEmployeeDataFormatter.js.map

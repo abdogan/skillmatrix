@@ -1,0 +1,2 @@
+sap.ui.define([],()=>{"use strict";return{getAvailabilityPercent(e,i){const t=i&&i[e];return t?t.availabilityPercent:"–"},getNextAvailability(e,i){const t=i&&i[e];return t?t.nextAvailability:"–"},getHighlightForAvailability(e,i){const t=i&&i[e];if(!t||!t.availabilityPercent)return"None";const r=parseFloat(t.availabilityPercent.replace("%","").replace(",","."));if(isNaN(r))return"None";if(r===0)return"Error";if(r>=75)return"Success";if(r>0&&r<75)return"Warning";return"None"}}});
+//# sourceMappingURL=CapacityFormatter.js.map

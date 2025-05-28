@@ -1,0 +1,297 @@
+<mvc:View
+    xmlns:uxap="sap.uxap"
+    controllerName="skillmatrix.skillmatrix.controller.EditEmployeeData"
+    height="100%"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:table="sap.ui.table"
+   
+>
+    <Page
+        id="EditPage"
+        class=""
+    >
+        
+        <Title
+				titleStyle="H3"
+				text="{
+                            parts: [
+                            'catalogModel>FIRST_NAME',
+                            'catalogModel>LAST_NAME'
+                            
+                    
+                            ],
+                            formatter: '.formatter.formatObjectHeaderTitle'
+                        }"
+				class="sapUiMediumMarginBegin sapUiSmallMarginTopBottom"/>
+        <content>
+            <FlexBox
+                direction="Row"
+                justifyContent="Start"
+                renderType="Div"
+                fitContainer="true"
+                height="100%"
+                class="sapUiMediumMarginBegin sapUiMediumMarginEnd"
+                
+            >
+                <VBox
+                    width="45%"
+                    class="sapUiSmallMarginEnd"
+                >
+                    <Panel
+                        headerText="{i18n>PersonalInfoPanelTitle}"
+                        expandable="false"
+                        
+                        
+                    >
+                        <form:SimpleForm
+                            editable="true"
+                            layout="ResponsiveGridLayout"
+                        >
+                            <Label
+                                text="{i18n>FirstNameInputLabel}"
+                                required="true"
+                            />
+                            <Input
+                                
+                                id="FirstName"
+                                
+                                placeholder="{i18n>FirstNameInputPlaceholder}"
+                                value="{catalogModel>FIRST_NAME}"
+                                type="Text"
+                            />
+                            <Label
+                                text="{i18n>LastNameInputLabel}"
+                                required="true"
+                            />
+                            <Input
+                                
+                                id="LastName"
+                                
+                                placeholder="{i18n>LastNameInputPlaceholder}"
+                                value="{catalogModel>LAST_NAME}"
+                            />
+
+                            <Label
+                                text="{i18n>EmailInputLabel}"
+                                required="true"
+                            />
+                            <Input
+                                
+                                id="Email"
+                                type="Email"
+                                placeholder="{i18n>EmailInputPlaceholder}"
+                                value="{catalogModel>EMAIL}"
+                            />
+
+                            <Label
+                                text="{i18n>LocationInputLabel}"
+                                required="true"
+                            />
+                            <ComboBox
+                                selectedKey="{catalogModel>LOCATION}"
+                                placeholder="{catalogModel>TO_LOCATION/CITY}"
+                                items="{
+                                    path: 'catalogModel>/Locations',
+                                    sorter: { path: 'CITY' }
+                                }"
+                            >
+                                <core:Item
+                                    key="{catalogModel>LOCATION}"
+                                    text="{catalogModel>CITY}"
+                                />
+                            </ComboBox>
+                        </form:SimpleForm>
+                    </Panel>
+                </VBox>
+                <VBox width="55%">
+                    <Panel
+                        headerText="{i18n>SkillsAssignmentPanelTitle}"
+                        expandable="false"
+                    >
+                        <VBox
+                            justifyContent="Start"
+                            class=""
+                        >
+                            <MessageStrip
+                                class="sapUiSmallMarginTopBottom"
+                                text="{i18n>MessageStripText}"
+                                showIcon="true"
+                                enableFormattedText="true"
+                            />
+
+                            <form:SimpleForm layout="ResponsiveGridLayout">
+                                <Label
+                                    text="{i18n>SelectSkillsComboBoxTitle}"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <ComboBox
+                                    id="skillsComboBox"
+                                    placeholder="{i18n>SelectSkillsComboBoxTitle}"
+                                    items="{
+                                    path: 'catalogModel>/Skills',
+                                    sorter: { path: 'SKILL' }
+                                }"
+                                >
+                                    <core:Item
+                                        key="{catalogModel>SKILL}"
+                                        text="{catalogModel>SHORT_DESC}"
+                                    />
+                                </ComboBox>
+                                <Label
+                                    text="{i18n>SelectExpertiseLevelComboBoxTitle}"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <ComboBox
+                                    id="expertiseLevelComboBox"
+                                    placeholder="{i18n>SelectExpertiseLevelComboBoxTitle}"
+                                >
+                                    <core:Item
+                                        key="1"
+                                        text="{i18n>ExpertiseLevelOneText}"
+                                    />
+                                    <core:Item
+                                        key="2"
+                                        text="{i18n>ExpertiseLevelTwoText}"
+                                    />
+                                    <core:Item
+                                        key="3"
+                                        text="{i18n>ExpertiseLevelThreeText}"
+                                    />
+                                    <core:Item
+                                        key="4"
+                                        text="{i18n>ExpertiseLevelFourText}"
+                                    />
+                                    <core:Item
+                                        key="5"
+                                        text="{i18n>ExpertiseLevelFiveText}"
+                                    />
+                                </ComboBox>
+                            </form:SimpleForm>
+                            <HBox
+                                justifyContent="End"
+                                class="sapUiSmallMarginEnd"
+                            >
+                                <Button
+                                    text="{i18n>AddSkillButtonText}"
+                                    press="onAddSkill"
+                                    type="Emphasized"
+                                />
+                            </HBox>
+                            <HBox
+                                justifyContent="Center"
+                                class="sapUiSmallMarginTop"
+                            >
+                                <table:Table
+                                    id="skillsTable"
+                                    rows="{path:'catalogModel>TO_MEMBER_SKILLS', parameters: {$$updateGroupId : 'teamMembersGroup'}}"
+                                    selectionMode="None"
+                                    ariaLabelledBy="title"
+                                    enableColumnFreeze="true"
+                                    class="sapUiLargeMarginBegin sapUiSmallMarginBottom "
+                                    width="93%"
+                                    visibleRowCount="5"
+                                >
+                                    <table:extension>
+                                        <OverflowToolbar style="Clear">
+                                            <Title
+                                                id="title"
+                                                text="{i18n>TableTitle}"
+                                                
+                                                
+                                            />
+                                        </OverflowToolbar>
+                                    </table:extension>
+                                    <table:columns>
+                                        <table:Column width="" hAlign="Center" resizable="false">
+                                            <Label text="{i18n>SkillColumnText}" />
+                                            <table:template>
+                                                <ComboBox
+                                                    id="skillsComboBox2"
+                                                    selectedKey="{catalogModel>SKILL}"
+                                                    editable="false"
+                                                    
+                                                    items="{
+                                                    path: 'catalogModel>/Skills',
+                                                    templateShareable: false
+          
+                                            }"
+                                                >
+                                                    <core:Item
+                                                        key="{catalogModel>SKILL}"
+                                                        text="{catalogModel>SHORT_DESC}"
+                                                        
+                                                    />
+                                                </ComboBox>
+                                            </table:template>
+                                        </table:Column>
+                                        <table:Column width="" hAlign="Center" resizable="false">
+                                            <Label text="{i18n>ExpertiseLevelColumnText}" />
+                                            <table:template>
+                                                <ComboBox
+                                                    id="expertiseLevelComboBox2"
+                                                    placeholder="{i18n>SelectExpertiseLevelComboBoxTitle}"
+                                                    selectedKey="{path:'catalogModel>SCORE', targetType:'any'}"
+                                                >
+                                                    <core:Item
+                                                       key="1"
+                                                        text="{i18n>ExpertiseLevelOneText}"
+                                                    />
+                                                    <core:Item
+                                                        key="2"
+                                                        text="{i18n>ExpertiseLevelTwoText}"
+                                                    />
+                                                    <core:Item
+                                                        key="3"
+                                                        text="{i18n>ExpertiseLevelThreeText}"
+                                                    />
+                                                    <core:Item
+                                                        key="4"
+                                                        text="{i18n>ExpertiseLevelFourText}"
+                                                    />
+                                                    <core:Item
+                                                        key="5"
+                                                        text="{i18n>ExpertiseLevelFiveText}"
+                                                    />
+                                                </ComboBox>
+                                            </table:template>
+                                        </table:Column>
+                                        <table:Column width="" hAlign="Center" resizable="false">
+                                            <Label text="{i18n>ActionColumnText}" />
+                                            <table:template>
+                                                <Button
+                                                    icon="sap-icon://delete"
+                                                    press="onDeleteSkill"
+                                                    type="Transparent"
+                                                />
+                                            </table:template>
+                                        </table:Column>
+                                    </table:columns>
+                                
+                                </table:Table>
+                            </HBox>
+                        </VBox>
+                    </Panel>
+                </VBox>
+            </FlexBox>
+        </content>
+        <footer>
+            <Bar>
+                <contentRight>
+                    <Button
+                        text="{i18n>SubmitButtonText}"
+                        press="handleSubmit"
+                        type="Emphasized"
+                    />
+                    <Button
+                        text="{i18n>CancelButtonText}"
+                        press="handleCancel"
+                    />
+                </contentRight>
+            </Bar>
+        </footer>
+    </Page>
+</mvc:View>

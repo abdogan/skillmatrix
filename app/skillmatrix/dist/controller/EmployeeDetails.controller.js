@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/mvc/Controller","sap/ui/core/UIComponent"],function(e,t){"use strict";return e.extend("skillmatrix.skillmatrix.controller.EmployeeDetails",{onInit(){const e=t.getRouterFor(this);e.getRoute("RouteEmployeeDetails").attachPatternMatched(this._onEmployeeMatched,this)},_onEmployeeMatched(e){const t=e.getParameter("arguments").KID;this.getView().bindElement({path:"/TeamMembers('"+t+"')",model:"catalogModel",parameters:{$$updateGroupId:"teamMembersGroup"}})}})});
+//# sourceMappingURL=EmployeeDetails.controller.js.map

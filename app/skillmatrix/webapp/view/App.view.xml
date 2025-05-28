@@ -1,0 +1,55 @@
+<mvc:View
+    controllerName="skillmatrix.skillmatrix.controller.App"
+    displayBlock="true"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+>
+    <VBox
+        fitContainer="true"
+        class=""
+    >
+        <f:ShellBar
+            id="appShellBar"
+            title="{i18n>appTitle}"
+            homeIcon="https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg"
+            showNotifications="true"
+            showSearch="true"
+            navButtonPressed=".onNavButtonPress"
+            class=""
+        >
+            <f:profile>
+                <Avatar initials="Ben" />
+            </f:profile>
+        </f:ShellBar>
+        <VBox id="iconTabBarWrapper" renderType="Bare">
+        <IconTabHeader
+            mode="Inline"
+            class="sapUiResponsiveContentPadding"
+            
+            backgroundDesign="Solid"
+            select=".onTabSelect"
+            selectedKey="home"
+            id="iconTabBarId"
+        >
+            <items>
+                <IconTabFilter
+                    key="home"
+                    text="{i18n>IconTabFilterHome}"
+                    icon="sap-icon://home"
+                />
+                <IconTabFilter
+                    key="upload"
+                    text="{i18n>IconTabFilterUpload}"
+                />
+                <IconTabFilter
+                    key="manageEntries"
+                    text="{i18n>IconTabFilterManage}"
+                />
+            </items>
+        </IconTabHeader>
+        </VBox>
+
+        <App id="app" />
+    </VBox>
+</mvc:View>

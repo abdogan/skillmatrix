@@ -1,0 +1,24 @@
+<ActionSheet
+    id="actionSheet"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    core:require="{ MessageToast: 'sap/m/MessageToast' }"
+    title="Choose Your Action"
+    showCancelButton="true"
+    placement="Bottom"
+>
+    <Button
+        text="Delete"
+        icon="sap-icon://delete"
+        type="Transparent"
+        press=".onDeletePress"
+        
+    />
+    <Button
+        text="{i18n>EditButtonText}"
+        icon="sap-icon://user-edit"
+        type="Transparent"
+        press=".onEditEmployeeDataPress"
+    />
+    
+</ActionSheet>

@@ -1,0 +1,2 @@
+sap.ui.loader.config({paths:{"custom/XLSX":"https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min"},shim:{"custom/XLSX":{amd:true,exports:"XLSX"}}});sap.ui.define(["sap/ui/core/UIComponent","skillmatrix/skillmatrix/model/models"],(t,e)=>{"use strict";return t.extend("skillmatrix.skillmatrix.Component",{metadata:{manifest:"json",interfaces:["sap.ui.core.IAsyncContentCreation"]},init(){t.prototype.init.apply(this,arguments);this.setModel(e.createDeviceModel(),"device");this.getRouter().initialize()}})});
+//# sourceMappingURL=Component.js.map

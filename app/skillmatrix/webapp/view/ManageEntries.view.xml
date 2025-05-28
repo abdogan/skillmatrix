@@ -1,0 +1,305 @@
+<mvc:View
+    xmlns:uxap="sap.uxap"
+    controllerName="skillmatrix.skillmatrix.controller.ManageEntries"
+    height="100%"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:table="sap.ui.table"
+>
+    <Page
+        id="newEntriesPage"
+        class=""
+        showHeader="false"
+    >
+    <Title
+				titleStyle="H3"
+				text="{i18n>IconTabFilterManage}"
+				class="sapUiMediumMarginBegin sapUiSmallMarginTopBottom"/>
+        
+        <content >
+            <FlexBox
+                direction="Row"
+                justifyContent="Start"
+                renderType="Div"
+                fitContainer="true"
+                height="100%"
+                class="sapUiMediumMarginBegin sapUiMediumMarginEnd "
+                
+            >
+                <VBox
+                    width="45%"
+                    class="sapUiSmallMarginEnd"
+                >
+                    <Panel
+                        headerText="{i18n>PersonalInfoPanelTitle}"
+                        expandable="false"
+                        
+                        
+                    >
+                        <form:SimpleForm
+                            editable="true"
+                            layout="ResponsiveGridLayout"
+                        >
+                            <Label
+                                text="{i18n>FirstNameInputLabel}"
+                                required="true"
+                            />
+                            <Input
+                                
+                                id="NewFirstName"
+                                
+                                placeholder="{i18n>FirstNameInputPlaceholder}"
+                                value="{NewEntryModel>/FIRST_NAME}"
+                                type="Text"
+                            />
+                            <Label
+                                text="{i18n>LastNameInputLabel}"
+                                required="true"
+                            />
+                            <Input
+                                
+                                id="NewLastName"
+                                
+                                placeholder="{i18n>LastNameInputPlaceholder}"
+                                value="{NewEntryModel>/LAST_NAME}"
+                            />
+                            <Label
+                                text="{i18n>KIDInputLabel}"
+                                required="true"
+                            />
+                            <Input
+                                
+                                id="NewKID"
+                                
+                                placeholder="{i18n>KIDInputPlaceholder}"
+                                value="{NewEntryModel>/KID}"
+                                type="Text"
+                            />
+                            <Label
+                                text="{i18n>LastNameInputLabel}"
+                                required="true"
+                            />
+
+                            <Label
+                                text="{i18n>EmailInputLabel}"
+                                required="true"
+                            />
+                            <Input
+                                id="NewEmail"
+                                
+                                type="Email"
+                                placeholder="{i18n>EmailInputPlaceholder}"
+                                value="{NewEntryModel>/EMAIL}"
+                            />
+
+                            <Label
+                                text="{i18n>LocationInputLabel}"
+                                required="true"
+                            />
+                            <ComboBox
+                                id="newLocationComboBox"
+                                selectedKey="{NewEntryModel>/LOCATION}"
+                                placeholder="Select city"
+                                items="{
+                                    path: 'catalogModel>/Locations',
+                                    sorter: { path: 'CITY' }
+                                }"
+                            >
+                                <core:Item
+                                    key="{catalogModel>LOCATION}"
+                                    text="{catalogModel>CITY}"
+                                />
+                            </ComboBox>
+                        </form:SimpleForm>
+                    </Panel>
+                </VBox>
+                <VBox width="55%">
+                    <Panel
+                        headerText="{i18n>SkillsAssignmentPanelTitle}"
+                        expandable="false"
+                    >
+                        <VBox
+                            justifyContent="Start"
+                            class=""
+                        >
+                            <MessageStrip
+                                class="sapUiSmallMarginTopBottom"
+                                text="{i18n>MessageStripText}"
+                                showIcon="true"
+                                enableFormattedText="true"
+                            />
+
+                            <form:SimpleForm layout="ResponsiveGridLayout">
+                                <Label
+                                    text="{i18n>SelectSkillsComboBoxTitle}"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <ComboBox
+                                    id="NewSkillsComboBox"
+                                    placeholder="{i18n>SelectSkillsComboBoxTitle}"
+                                    items="{
+                                    path: 'catalogModel>/Skills',
+                                    sorter: { path: 'SKILL' }
+                                }"
+                                >
+                                    <core:Item
+                                        key="{catalogModel>SKILL}"
+                                        text="{catalogModel>SHORT_DESC}"
+                                    />
+                                </ComboBox>
+                                <Label
+                                    text="{i18n>SelectExpertiseLevelComboBoxTitle}"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <ComboBox
+                                    id="NewExpertiseLevelComboBox"
+                                    placeholder="{i18n>SelectExpertiseLevelComboBoxTitle}"
+                                >
+                                    <core:Item
+                                        key="1"
+                                        text="{i18n>ExpertiseLevelOneText}"
+                                    />
+                                    <core:Item
+                                        key="2"
+                                        text="{i18n>ExpertiseLevelTwoText}"
+                                    />
+                                    <core:Item
+                                        key="3"
+                                        text="{i18n>ExpertiseLevelThreeText}"
+                                    />
+                                    <core:Item
+                                        key="4"
+                                        text="{i18n>ExpertiseLevelFourText}"
+                                    />
+                                    <core:Item
+                                        key="5"
+                                        text="{i18n>ExpertiseLevelFiveText}"
+                                    />
+                                </ComboBox>
+                            </form:SimpleForm>
+                            <HBox
+                                justifyContent="End"
+                                class="sapUiSmallMarginEnd"
+                            >
+                                <Button
+                                    text="{i18n>AddSkillButtonText}"
+                                    press="onAddSkill"
+                                    type="Emphasized"
+                                />
+                            </HBox>
+                            <HBox
+                                justifyContent="Center"
+                                class="sapUiSmallMarginTop"
+                            >
+                                <table:Table
+                                    id="NewSkillsTable"
+                                    rows="{NewEntryModel>/TO_MEMBER_SKILLS}"
+                                    selectionMode="None"
+                                    ariaLabelledBy="title"
+                                    enableColumnFreeze="true"
+                                    class="sapUiLargeMarginBegin sapUiSmallMarginBottom "
+                                    width="93%"
+                                    visibleRowCount="5"
+                                >
+                                    <table:extension>
+                                        <OverflowToolbar style="Clear">
+                                            <Title
+                                                id="NewTableTitle"
+                                                text="{i18n>TableTitle}"
+                                                
+                                                
+                                            />
+                                        </OverflowToolbar>
+                                    </table:extension>
+                                    <table:columns>
+                                        <table:Column width="" hAlign="Center" resizable="false">
+                                            <Label text="{i18n>SkillColumnText}" />
+                                            <table:template>
+                                                <ComboBox
+                                                    id="NewSkillsComboBox2"
+                                                    selectedKey="{NewEntryModel>SKILL}"
+                                                    editable="false"
+                                                    items="{
+                                                path: 'catalogModel>/Skills',
+                                                templateShareable: false
+          
+                                            }"
+                                                >
+                                                    <core:Item
+                                                        key="{catalogModel>SKILL}"
+                                                        text="{catalogModel>SHORT_DESC}"
+                                                        
+                                                    />
+                                                </ComboBox>
+                                            </table:template>
+                                        </table:Column>
+                                        <table:Column width="" hAlign="Center" resizable="false">
+                                            <Label text="{i18n>ExpertiseLevelColumnText}" />
+                                            <table:template>
+                                                <ComboBox
+                                                    id="NewExpertiseLevelComboBox2"
+                                                    placeholder="{i18n>SelectExpertiseLevelComboBoxTitle}"
+                                                    selectedKey="{path:'NewEntryModel>SCORE', targetType:'string'}"
+                                                >
+                                                    <core:Item
+                                                       key="1"
+                                                        text="{i18n>ExpertiseLevelOneText}"
+                                                    />
+                                                    <core:Item
+                                                        key="2"
+                                                        text="{i18n>ExpertiseLevelTwoText}"
+                                                    />
+                                                    <core:Item
+                                                        key="3"
+                                                        text="{i18n>ExpertiseLevelThreeText}"
+                                                    />
+                                                    <core:Item
+                                                        key="4"
+                                                        text="{i18n>ExpertiseLevelFourText}"
+                                                    />
+                                                    <core:Item
+                                                        key="5"
+                                                        text="{i18n>ExpertiseLevelFiveText}"
+                                                    />
+                                                </ComboBox>
+                                            </table:template>
+                                        </table:Column>
+                                        <table:Column width="" hAlign="Center" resizable="false">
+                                            <Label text="{i18n>ActionColumnText}" />
+                                            <table:template>
+                                                <Button
+                                                    icon="sap-icon://delete"
+                                                    press="onDeleteSkill"
+                                                    type="Transparent"
+                                                />
+                                            </table:template>
+                                        </table:Column>
+                                    </table:columns>
+                                
+                                </table:Table>
+                            </HBox>
+                        </VBox>
+                    </Panel>
+                </VBox>
+            </FlexBox>
+        </content>
+        <footer>
+            <Bar>
+                <contentRight>
+                    <Button
+                        text="{i18n>SubmitButtonText}"
+                        press="handleSubmit"
+                        type="Emphasized"
+                    />
+                    <Button
+                        text="{i18n>CancelButtonText}"
+                        press="handleCancel"
+                    />
+                </contentRight>
+            </Bar>
+        </footer>
+    </Page>
+</mvc:View>

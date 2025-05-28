@@ -1,0 +1,144 @@
+<mvc:View 
+	controllerName="skillmatrix.skillmatrix.controller.EmployeeDetails"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.uxap"
+	xmlns:layout="sap.ui.layout"
+	xmlns:m="sap.m"
+	xmlns:table="sap.ui.table"
+	
+	
+	height="100%">
+	
+	
+	<ObjectPageLayout id="ObjectPageLayout"
+		showTitleInHeaderContent="true"
+		showEditHeaderButton="true"
+		editHeaderButtonPress="handleEditBtnPress"
+		headerContentPinned="true"
+		upperCaseAnchorBar="false">
+		<headerTitle>
+			<ObjectPageDynamicHeaderTitle >
+
+				<expandedHeading>
+					<m:HBox>
+						
+						
+						<m:VBox >
+						<m:Title text="{= ${catalogModel>FIRST_NAME} + ' ' + ${catalogModel>LAST_NAME}}" wrapping="true"/>
+						
+						</m:VBox>
+						
+					</m:HBox>
+				</expandedHeading>
+
+				<snappedHeading>
+					<m:FlexBox  fitContainer="true" alignItems="Center">
+						<m:Avatar src="sap-icon://person-placeholder" class="sapUiSmallMarginEnd"/>
+						<m:Title text="{= ${catalogModel>FIRST_NAME} + ' ' + ${catalogModel>LAST_NAME}}" wrapping="true"/>
+					</m:FlexBox>
+				</snappedHeading>
+
+				
+
+				
+
+				<snappedTitleOnMobile>
+					<m:Title text="{catalogModel>FIRST_NAME}"/>
+				</snappedTitleOnMobile>
+
+				<actions>
+					<m:OverflowToolbarButton icon="sap-icon://edit" text="edit header" type="Emphasized" tooltip="edit">
+						<m:layoutData>
+							<m:OverflowToolbarLayoutData priority="NeverOverflow"/>
+						</m:layoutData>
+					</m:OverflowToolbarButton>
+					<m:OverflowToolbarButton icon="sap-icon://pull-down" text="show section" type="Emphasized" tooltip="pull-down"/>
+					<m:OverflowToolbarButton icon="sap-icon://show" text="show state" tooltip="show"/>
+					<m:Button text="Toggle Footer" press="toggleFooter"/>
+				</actions>
+			
+
+
+			</ObjectPageDynamicHeaderTitle>
+		</headerTitle>
+
+		<headerContent>
+		
+			<layout:VerticalLayout class="sapUiMediumMarginEnd">
+				<m:ObjectStatus title="{i18n>KIDInputLabel}" text="{catalogModel>KID}"/>
+				<m:ObjectStatus title="{i18n>LocationInputLabel}" text="{catalogModel>TO_LOCATION/CITY}"/>
+				
+				
+			</layout:VerticalLayout>
+
+			
+			<layout:VerticalLayout class="sapUiMediumMarginEnd">
+				
+				<m:Link text="{catalogModel>EMAIL}"/>
+			</layout:VerticalLayout>
+			
+			
+			
+			
+		</headerContent>
+
+
+		<sections class="sapUiResponsiveMargin">
+			<ObjectPageSection titleUppercase="false" title="Skills" >
+				<subSections>
+					<ObjectPageSubSection titleUppercase="false">
+						<blocks>
+							<table:Table 
+							id="skillsTable2"
+                                    rows="{path:'catalogModel>TO_MEMBER_SKILLS'}"
+                                    selectionMode="None"
+                                    ariaLabelledBy="title"
+                                    enableColumnFreeze="true"
+                                    class="sapUiLargeMarginBegin sapUiSmallMarginBottom "
+                                    width="93%"
+									>
+							<table:extension>
+					<m:OverflowToolbar style="Clear">
+						<m:Title text="{i18n>TableTitle}"/>
+					</m:OverflowToolbar>
+				</table:extension>
+							
+							
+							</table:Table>
+							<m:Text text="abc"></m:Text>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+			<ObjectPageSection titleUppercase="false" title="Capacity">
+				<subSections>
+					<ObjectPageSubSection title="CATS" titleUppercase="false">
+						<blocks>
+							<m:Text text="abc"></m:Text>
+						</blocks>
+					</ObjectPageSubSection>
+
+					<ObjectPageSubSection id="additionalInfoSubSection" title="Additional information" titleUppercase="false">
+						<blocks>
+							<m:Text text="abc"></m:Text>
+						</blocks>
+						<moreBlocks>
+							<m:Text text="abc"></m:Text>
+						</moreBlocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+		</sections>
+
+		
+		<footer>
+			<m:OverflowToolbar>
+				<m:ToolbarSpacer />
+				<m:Button type="Accept" text="Accept"/>
+				<m:Button type="Reject" text="Reject"/>
+			</m:OverflowToolbar>
+		</footer>
+	</ObjectPageLayout>
+</mvc:View>

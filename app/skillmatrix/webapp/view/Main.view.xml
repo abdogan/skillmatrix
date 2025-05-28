@@ -1,0 +1,242 @@
+<mvc:View
+    controllerName="skillmatrix.skillmatrix.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:grid="sap.ui.layout.cssgrid"
+    xmlns:t="sap.tnt"
+    xmlns:uxap="sap.uxap"
+    xmlns:unified="sap.ui.unified"
+    height="100%"
+>
+    <f:DynamicPage
+        id="dynamicPage"
+        headerExpanded="true"
+        toggleHeaderOnTitleClick="false"
+    >
+        <f:header>
+            <f:DynamicPageHeader
+                pinnable="false"
+                class=""
+            >
+                <fb:FilterBar
+                    id="employeeFilterBar"
+                    search=".onFilterBarSearch"
+                    header="{i18n>filterTitle}"
+                    headerLevel="Auto"
+                    showFilterConfiguration="false"
+                    class="sapUiTinyMarginTop"
+                    showClearOnFB="true"
+                    clear=".onClearFilters"
+                >
+                    <fb:filterGroupItems>
+                        <!-- Skills -->
+                        <fb:FilterGroupItem
+                            name="Skills"
+                            label="{i18n>FilterSkillLabel}"
+                            groupName="Group1"
+                            visibleInFilterBar="true"
+                        >
+                            <fb:control>
+                                <MultiComboBox
+                                    id="skillsFilter"
+                                    selectionChange=".onSelectionChange"
+                                    items="{
+                                            path: 'catalogModel>/Skills',
+                                            sorter: { path: 'SHORT_DESC' }
+                                        }"
+                                    placeholder="{i18n>FilterSkillPlaceholder}"
+                                >
+                                    <core:Item
+                                        key="{catalogModel>SKILL}"
+                                        text="{catalogModel>SHORT_DESC}"
+                                    />
+                                </MultiComboBox>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+
+                        <!-- Availability -->
+                        <fb:FilterGroupItem
+                            name="Availability"
+                            label="{i18n>FilterAvailabilityLabel}"
+                            groupName="Group1"
+                            visibleInFilterBar="true"
+                        >
+                            <fb:control>
+                                <DateRangeSelection
+                                    id="dateRangeFilter"
+                                    displayFormat="dd-MM-yyyy"
+                                    change=".onDateRangeChange"
+                                    dateValue="{ path: '/DateFilter/dateFrom', targetType: 'any' }"
+                                    secondDateValue="{ path: '/DateFilter/dateTo', targetType: 'any' }"
+                                    placeholder="{i18n>FilterAvailabilityPlaceholder}"
+                                    tooltip="{i18n>FilterAvailabilityToolTip}"
+                                />
+                            </fb:control>
+                        </fb:FilterGroupItem>
+
+                        <!-- Team Members -->
+                        <fb:FilterGroupItem
+                            name="Members"
+                            label="{i18n>FilterTeamMemberLabel}"
+                            groupName="Group1"
+                            visibleInFilterBar="true"
+                        >
+                            <fb:control>
+                                <MultiComboBox
+                                    id="membersFilter"
+                                    selectionChange=".onSelectionChange"
+                                    items="{
+                                            path: 'catalogModel>/TeamMembers',
+                                            sorter: { path: 'FIRST_NAME' }
+                                        }"
+                                    placeholder="{i18n>FilterTeamMemberPlaceholder}"
+                                >
+                                    <core:Item
+                                        key="{catalogModel>KID}"
+                                        text="{catalogModel>FIRST_NAME}"
+                                    />
+                                </MultiComboBox>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                    </fb:filterGroupItems>
+                </fb:FilterBar>
+            </f:DynamicPageHeader>
+        </f:header>
+        
+        
+        <!-- Content -->
+        <f:content>
+            <VBox width="100%">
+                <Title
+                    text="{i18n>TitleAboveCards}"
+                    level="H1"
+                    class=" sapUiLargeMarginTop sapUiSmallMarginBottom"
+                />
+
+                <f:GridList
+                    id="gridList"
+                    class=""
+                    growing="true"
+                    items="{
+                        path: 'catalogModel>/TeamMembers',
+                        parameters: {
+                            $expand: 'TO_MEMBER_SKILLS,TO_LOCATION,TO_CAPACITY'
+                        }
+                    }"
+                >
+                    <f:customLayout>
+                        <grid:GridBoxLayout boxWidth="19rem" />
+                    </f:customLayout>
+
+                    <f:GridListItem
+                        class="sapUiTinyMarginEnd sapUiSmallMarginBottom"
+                        type="Active"
+                        tooltip="{i18n>listItemsTooltip}"
+                        highlight="{
+                            parts: [
+                                { path: 'catalogModel>KID' },
+                                { path: 'availabilityModel>/' }
+                            ],
+                            formatter: '.capacityFormatter.getHighlightForAvailability'
+                        }"
+                        press=".onDetailsPress"                    
+                    >
+                        <VBox
+                            height="100%"
+                            justifyContent="SpaceBetween"
+                        >
+                            <!-- Top info -->
+                            <VBox>
+                                <HBox
+                                    justifyContent="SpaceBetween"
+                                    class="sapUiTinyMarginBottom sapUiSmallMarginTop sapUiSmallMarginBeginEnd"
+                                >
+                                    <HBox>
+                                        <Avatar
+                                            initials="{= ${catalogModel>FIRST_NAME}.charAt(0).toUpperCase() + ${catalogModel>LAST_NAME}.charAt(0).toUpperCase() }"
+                                            displaySize="M"
+                                            displayShape="Square"
+                                        />
+                                        <VBox>
+                                            <Title
+                                                text="{= ${catalogModel>FIRST_NAME} + '\n' + ${catalogModel>LAST_NAME} }"
+                                                wrapping="true"
+                                                level="H4"
+                                                class="sapUiSmallMarginBegin sapUiMediumMarginEnd"
+                                            />
+
+                                            <Label
+                                                text="{catalogModel>KID}"
+                                                class="sapUiSmallMarginBegin"
+                                            />
+                                        </VBox>
+                                    </HBox>
+                                    <Button
+                                        icon="sap-icon://overflow"
+                                        type="Transparent"
+                                        press=".onMorePress"
+                                        class="sapUiSmallMarginBegin"
+                                    >
+                                        <dependents>
+                                            <core:Fragment
+                                                fragmentName="skillmatrix.skillmatrix.view.ActionSheet"
+                                                type="XML"
+                                            />
+                                        </dependents>
+                                    </Button>
+                                </HBox>
+                                <HBox justifyContent="Start">
+                                <FormattedText htmlText="{i18n>availabilityText}" class=" sapUiSmallMarginBegin sapUiTinyMarginBottom sapUiTinyMarginEnd"/>
+                                <Text
+                                    text="{
+                                        parts: [
+                                            { path: 'catalogModel>KID' },
+                                            { path: 'availabilityModel>/' }
+                                        ],
+                                        formatter: '.capacityFormatter.getAvailabilityPercent'
+                                    }"
+                                />
+                                </HBox>
+                                <FormattedText htmlText="{i18n>fullyAvailableText}" class=" sapUiSmallMarginBegin sapUiTinyMarginBottom"/>
+                                <Text
+                                    text="{
+                                        
+                                        parts: [
+                                            { path: 'catalogModel>KID' },
+                                            { path: 'availabilityModel>/' }
+                                        ],
+                                        formatter: '.capacityFormatter.getNextAvailability'
+                                    }"
+                                    class="sapUiSmallMarginBeginEnd"
+                                />
+
+                                <Text
+                                    text="{= ${catalogModel>TO_LOCATION/CITY} + ', ' + ${catalogModel>TO_LOCATION/COUNTRY}}"
+                                    class="sapUiTinyMarginTopBottom sapUiSmallMarginBeginEnd"
+                                />
+                                <Link
+                                    text="{catalogModel>EMAIL}"
+                                    href="mailto:{catalogModel>EMAIL}"
+                                    wrapping="true"
+                                    class="sapUiSmallMarginBeginEnd"
+                                />
+                            </VBox>
+
+                            <!-- Buttons -->
+                            <HBox
+                                justifyContent="SpaceAround"
+                                class="sapUiTinyMarginBeginEnd sapUiSmallMarginTop sapUiTinyMarginBottom"
+                            >
+                                
+                            </HBox>
+                        </VBox>
+                    </f:GridListItem>
+                </f:GridList>
+            </VBox>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

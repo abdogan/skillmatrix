@@ -1,0 +1,192 @@
+<mvc:View
+    controllerName="skillmatrix.skillmatrix.controller.Upload"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:unified="sap.ui.unified"
+>
+    <Page showHeader="false">
+        <layout:VerticalLayout class="sapUiMediumMarginBegin">
+            <Title
+                titleStyle="H3"
+                text="{i18n>IconTabFilterUpload}"
+                class="sapUiSmallMarginTop sapUiSmallMarginBottom"
+            />
+            <Panel
+                headerText="{i18n>instructionsHeader}"
+                expandable="false"
+                class="sapUiMediumMarginEnd sapUiMediumMarginBottom"
+                width="68%"
+            >
+            <VBox>
+            <MessageStrip
+                                class="sapUiSmallMarginTopBottom"
+                                text="{i18n>instructionsText}"           
+                                showIcon="true"
+                                enableFormattedText="true"
+                        />
+            
+            
+            <FormattedText htmlText="{i18n>capacityUploadNote}" class="sapUiTinyMarginBottom" />
+            
+           
+            
+            </VBox>
+            </Panel>
+            
+            <HBox  >
+             <VBox class="sapUiMediumMarginEnd">
+                <Panel
+                        headerText="{i18n>uploadPersonalData}"
+                        expandable="false"
+                        class="sapUiMediumMarginEnd"
+                        width="100%"
+                    >
+                    <Text text="{i18n>uploadGuideText}" class="sapUiTinyMarginBottom"/>
+                    <HBox class="sapUiSmallMarginBottom">
+                        <VBox class="sapUiSmallMarginEnd">
+                            
+                            <Text text="{i18n>uploadGuideTextFirstName}" />
+                            <Text text="{i18n>uploadGuideTextLastName}" />
+                            
+                        </VBox>
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Text text="{i18n>uploadGuideTextKID}" />
+                            <Text text="{i18n>uploadGuideTextEmail}" />
+                            
+                           
+                        </VBox>
+                        <VBox>
+                            <Text text="{i18n>uploadGuideTextLocationID}" />
+                            <Text text="{i18n>uploadGuideTextLocationCity}" />
+                            
+                        </VBox>
+                    </HBox>
+
+                    <unified:FileUploader
+                            id="personalDataFileUploader"
+                            name="personalDataFileUploader"
+                            fileType="xlsx"
+                            uploadComplete=".handleUploadComplete"
+                            change=".fileUploadChange"
+                            buttonOnly="false"
+                            iconOnly="false"
+                            placeholder="{i18n>selectFilePlaceholder}"
+                            width="100%"
+                        />
+                        
+                        <Button
+                            text="{i18n>parseInfo}"
+                            press=".handleParsePersonalDataPress"
+                            class="sapUiTinyMarginEnd sapUiTinyMarginTopBottom"
+                        />
+                        <Button
+                            text="{i18n>uploadFile}"
+                            press=".handleSubmitPersonalDataPress"
+                            class="sapUiTinyMarginTopBottom"
+                            type="Emphasized"
+                        />
+                </Panel>
+                </VBox>
+                <VBox class="sapUiMediumMarginEnd">
+                <Panel
+                        headerText="{i18n>uploadSkillData}"
+                        expandable="false"
+                        class="sapUiMediumMarginEnd"
+                        
+                    >
+
+                    <Text text="{i18n>uploadGuideText}" class="sapUiTinyMarginBottom"/>
+                    <HBox class="sapUiSmallMarginBottom">
+                        <VBox class="sapUiSmallMarginEnd">
+                            
+                            <Text text="{i18n>uploadGuideTextSkill}" />
+                            <Text text="{i18n>uploadGuideTextSkillShortdesc}" />
+                            
+                        </VBox>
+                        
+                        
+                    </HBox>
+                    <unified:FileUploader
+                            id="skillFileUploader"
+                            name="skillFileUploader"
+                            fileType="xlsx"
+                            uploadComplete=".handleUploadComplete"
+                            change=".fileUploadChange"
+                            buttonOnly="false"
+                            iconOnly="false"
+                            placeholder="{i18n>selectFilePlaceholder}"
+                            width="100%"
+                        />
+                        
+                        <Button
+                            text="{i18n>parseInfo}"
+                            press=".handleParseSkillDataPress"
+                            class="sapUiTinyMarginEnd sapUiTinyMarginTopBottom"
+                        />
+                        <Button
+                            text="{i18n>uploadFile}"
+                            press=".handleSubmitSkillDataPress"
+                            class="sapUiTinyMarginTopBottom"
+                            type="Emphasized"
+                        />
+                </Panel> 
+                </VBox>
+                <VBox >
+                <Panel
+                headerText="{i18n>uploadCapacityData}"
+                        expandable="false"
+                        class="sapUiMediumMarginEnd">
+                <Text text="{i18n>uploadGuideTextCapacity}" class="sapUiTinyMarginBottom"/>
+                <HBox class="sapUiSmallMarginBottom">
+                        <VBox class="sapUiSmallMarginEnd">
+                            
+                            <Text text="{i18n>uploadGuideTextCapacityPoint1}" />
+                            <Text text="{i18n>uploadGuideTextCapacityPoint2}" />
+                            
+                        </VBox>
+                        
+                        
+                    </HBox>        
+                <unified:FileUploader
+                        id="capacityFileUploader"
+                        name="capacityFileUploader"
+                        fileType="xlsx"
+                        uploadComplete=".handleUploadComplete"
+                        change=".fileUploadChange"
+                        visible="true"
+                        buttonOnly="false"
+                        iconOnly="false"
+                        placeholder="{i18n>selectFilePlaceholder}"
+                        width="100%"
+                    />
+                    <Button
+                        text="{i18n>parseInfo}"
+                        press=".handleParseCapacityDataPress"
+                        class="sapUiTinyMarginEnd sapUiTinyMarginTopBottom"
+                    />
+                    <Button
+                        text="{i18n>uploadFile}"
+                        press=".handleSubmitCapacityDataPress()"
+                        class="sapUiTinyMarginTopBottom sapUiTinyMarginEnd"
+                        type="Emphasized"
+                    />
+                    
+                </Panel>
+                </VBox>   
+            </HBox> 
+            
+                
+                
+               
+                
+            
+
+            
+            
+
+                
+            
+        </layout:VerticalLayout>
+    </Page>
+</mvc:View>

@@ -1,0 +1,184 @@
+{
+  "sap.cloud": {
+    "public": true,
+    "service": "skillmatrix.skillmatrix"
+  },
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "skillmatrix.skillmatrix",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.17.0",
+      "toolsId": "75906110-13a5-4e67-b1c0-4e179ea46fe3"
+    },
+    "dataSources": {
+      "v4Service": {
+        "uri": "/odata/v4/catalog/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "Skillmatrix-Display": {
+          "semanticObject": "Skillmatrix",
+          "action": "Display",
+          "title": "{{Skillmatrix-Display.flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.134.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.ui.comp": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "skillmatrix.skillmatrix.i18n.i18n"
+        }
+      },
+      "catalogModel": {
+        "dataSource": "v4Service",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true,
+          "updateGroupId": "teamMembersGroup"
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "skillmatrix.skillmatrix.view",
+        "async": true,
+        "viewPath": "skillmatrix.skillmatrix.view"
+      },
+      "routes": [
+        {
+          "name": "RouteMain",
+          "pattern": ":?query:",
+          "target": [
+            "TargetMain"
+          ]
+        },
+        {
+          "name": "RouteUpload",
+          "pattern": "upload",
+          "target": [
+            "TargetUpload"
+          ]
+        },
+        {
+          "name": "RouteManageEntries",
+          "pattern": "manageentries",
+          "target": [
+            "TargetManageEntries"
+          ]
+        },
+        {
+          "name": "RouteEditEmployeeData",
+          "pattern": "editemployeedata/{KID}",
+          "target": [
+            "TargetEditEmployeeData"
+          ]
+        },
+        {
+          "name": "RouteEmployeeDetails",
+          "pattern": "employeedetails/{KID}",
+          "target": [
+            "TargetEmployeeDetails"
+          ]
+        }
+      ],
+      "targets": {
+        "TargetMain": {
+          "id": "Main",
+          "name": "Main"
+        },
+        "TargetUpload": {
+          "id": "Upload",
+          "name": "Upload"
+        },
+        "TargetManageEntries": {
+          "id": "ManageEntries",
+          "name": "ManageEntries"
+        },
+        "TargetEditEmployeeData": {
+          "id": "EditEmployeeData",
+          "name": "EditEmployeeData"
+        },
+        "TargetEmployeeDetails": {
+          "id": "EmployeeDetails",
+          "name": "EmployeeDetails"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "skillmatrix.skillmatrix.view.App",
+      "type": "XML",
+      "id": "app",
+      "async": true
+    },
+    "config": {
+      "fullWidth": true
+    }
+  }
+}
