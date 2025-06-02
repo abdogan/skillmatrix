@@ -40,7 +40,7 @@ modules:
       requires:
         - name: SkillMatrixskillmatrix
           artifacts:
-            - skillmatrix.zip
+            - skillmatrixskillmatrix.zip
           target-path: app/
 
   - name: SkillMatrixskillmatrix
