@@ -1,7 +1,7 @@
 {
   "sap.cloud": {
     "public": true,
-    "service": "skillmatrix.skillmatrix"
+    "service": "skillmatrix"
   },
   "_version": "1.65.0",
   "sap.app": {
